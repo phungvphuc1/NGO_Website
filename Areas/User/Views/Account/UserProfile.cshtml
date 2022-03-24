@@ -1,0 +1,73 @@
+﻿@model Account
+@{
+    TempData["Title"] = "UserProfile";
+}
+
+<link href="~/css/User/userprofile.css" rel="stylesheet" />
+
+<!-- Page Header Start -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+<div class="container">
+    <div class="row profile">
+        @await Html.PartialAsync("~/Areas/User/Views/Shared/_UserProfile.cshtml")
+        <div class="col-md-9">
+            <div class="profile-content">
+                <div class="row">
+                    <div class="col-8">
+                        <dl class="d-lg-inline">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.FullName)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.FullName)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Email)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Phone)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Phone)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Address)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Address)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Birthday)
+                            </dt>
+                            <dd>
+                                @Model.Birthday.ToString("dd MMM yyyy")
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.CreatedAt)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.CreatedAt)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+
+    }
+}

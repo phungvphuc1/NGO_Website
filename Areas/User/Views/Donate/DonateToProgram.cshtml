@@ -1,0 +1,114 @@
+﻿@model NGOWebApp.Models.Donate
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Donate";
+}
+
+@section Styles{
+    <link href="~/css/User/donate.css" rel="stylesheet" />
+}
+<!-- Page Header Start -->
+<div class="d-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Donate</h2>
+            </div>
+            <div class="col-12">
+                <a href="/user/home">Home</a>
+                <a href="">Donate</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+<div class="main">
+    <h1>Credit Card Donation Form</h1>
+    <!---728x90--->
+
+    <form asp-area="User" asp-controller="Donate" asp-action="DonateToProgram" method="post">
+        <div class="w3_agile_main_grids">
+            <div>
+                <input hidden asp-for="AccountId" value="@Context.Session.GetInt32("AccountId")" />
+                <input hidden asp-for="ProgramId" value="@ViewBag?.Info["ProgramId"]" />
+                <input hidden asp-for="PartnerId" value="@ViewBag?.Info["PartnerId"]" />
+                <input hidden asp-for="CategoryId" value="@ViewBag?.Info["Category"]" />
+                <input hidden asp-for="Status" value="2" />
+            </div>
+
+            <div class="agileits_w3layouts_main_grid">
+                <div class="agile_main_grid_left">
+
+                    <h3>Your Details :</h3>
+                    <input type="text" name="First Name" placeholder="First Name" required>
+                    <input type="text" name="Last Name" placeholder="Last Name" required>
+                    <input type="email" name="Email" placeholder="Email" required>
+                    <input type="text" name="Organization" placeholder="Organization">
+                    <input type="text" name="Address" placeholder="Address">
+
+                    <input type="text" name="Phone Number" placeholder="Phone Number" required>
+                    <textarea name="Message" placeholder="Comments..." rows="16"></textarea>
+
+                </div>
+                <div class="agile_main_grid_left">
+                    <div class="w3_agileits_main_grid_left_grid">
+                        <h3>Your Donation :</h3>                    
+                        <div class="agileits_main_grid_left_l_grids">
+                            <div class="w3_agileits_main_grid_left_l">
+                                <h4>Donation Amount</h4>
+                            </div>
+                            <br>
+                            <div class="w3_agileits_main_grid_left_r">
+                                <input type="number" asp-for="Amount" placeholder="Amount" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w3_agileits_qualifications">
+                        <h3>Credit Card</h3>
+                        <div class="w3-agile1">
+                            <div class="payment-w3ls">
+                                <img src="~/images/Donate/card.png" alt=" " class="img-responsive">
+                            </div>
+                        </div>
+                        <div class="card-bounding agileits">
+
+                            <div class="card-details">
+                                <aside>Name On Card:</aside>
+                                <input type="text" name="name" placeholder="Name On Card" required>
+                            </div>
+                            <aside>Card Number:</aside>
+                            <div class="card-details">
+                                <!--- ".card-type" is a sprite used as a background image with associated classes for the major card types, providing x-y coordinates for the sprite --->
+
+                                <input type="text" name="card number" class="hm" placeholder="0000 0000 0000 0000" maxlength="19" onkeyup="$cc.validate(event)" required>
+                                <!-- The checkmark ".card-valid" used is a custom font from icomoon.io --->
+
+                            </div>
+                            <div class="card-details agileits-w3layouts">
+                                <div class="expiration">
+                                    <aside>Expiration Date</aside>
+                                    <input type="text" name="date" onkeyup="$cc.expiry.call(this,event)" maxlength="7" placeholder="mm/yyyy" required>
+                                </div>
+                                <div class="cvv">
+                                    <aside>CVV</aside>
+                                    <input type="text" name="cvv" placeholder="XXX" maxlength="3" required>
+                                </div>
+                                <div class="clear">	</div>
+                            </div>
+                            <input type="submit" value="Donate">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clear"> </div>
+
+            </div>
+        </div>
+    </form>
+
+</div>
+@section Scripts{
+    <script src="~/js/User/creditCardValidator.js" type="text/javascript"></script>
+}

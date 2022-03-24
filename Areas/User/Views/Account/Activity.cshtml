@@ -1,0 +1,121 @@
+﻿@model IEnumerable<NGOWebApp.Models.Interested>
+@{
+    TempData["Title"] = "Transaction";
+}
+
+<link href="~/css/User/userprofile.css" rel="stylesheet" />
+@section Styles {
+    <style>
+        .activities {
+            max-height: 1208px;
+            position: relative;
+            padding-bottom: 50px;
+        }
+
+        .decor-default {
+            background-color: #ffffff !important;
+        }
+
+        div[class*='col-'] > .col-inside-lg {
+            padding: 20px;
+        }
+
+        .activities .unit {
+            border-bottom: 1px solid #d8d8d8;
+            padding: 20px 0 20px 50px;
+            min-height: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .activities .unit .avatar {
+                display: block;
+                width: 40px;
+                height: 40px;
+                position: absolute;
+                top: 20px;
+                left: 0;
+            }
+                .activities .unit .avatar img
+
+        {
+            display: block;
+            border-radius: 50%;
+            max-width: 100%;
+        }
+
+        .activities .unit .field {
+            overflow: hidden;
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+            .activities .unit .field a {
+                font-weight: bold;
+                color: #333333;
+            }
+
+            .activities .unit .field.btn-group-xs {
+                padding: 20px 0 0;
+            }
+
+        .activities .unit .field {
+            overflow: hidden;
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .f-l {
+            float: left;
+        }
+
+        .unit .avatar img {
+            width: 50px !important;
+            height: 50px !important;
+        }
+    </style>
+}
+
+<!-- Page Header Start -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+<div class="container">
+    <div class="row profile">
+        @await Html.PartialAsync("~/Areas/User/Views/Shared/_UserProfile.cshtml")
+        <div class="col-md-9">
+            <div class="profile-content">
+                <div class="col-inside-lg decor-default activities" id="activities" style="overflow-y: hidden; outline: none;" tabindex="5003">
+                    @if (Model.Count() == 0)
+                    {
+                        <h6>You are not interested in any campaign</h6>
+                    }
+                    else
+                    {
+                        <h6>Campaigns that you've been interested in</h6>
+                        @foreach (var item in Model)
+                        {
+                            <div class="unit">
+                                <a class="avatar" href="#"><img src="~/@item.GetAccount.Avatar" class="img-responsive" alt="profile"></a>
+                                <div class="field title">
+                                    <a href="#">@item.GetAccount.FullName</a> like a campaign  <a href="/user/event/details/@item.ProgramId">@item.GetPrograms.ShortContent</a>
+                                </div>
+                                <div class="field date">
+                                    <span class="f-l">@item.CreatedAt</span>
+
+                                </div>
+                            </div>
+                        }
+
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

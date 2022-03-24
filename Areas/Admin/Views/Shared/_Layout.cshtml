@@ -1,0 +1,144 @@
+﻿@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>@ViewData["Title"] - Admin</title>
+    <script src="~/js/Admin/jquery-3.5.1.js"></script>
+    <script src="~/js/Admin/all.min.js"></script>
+    <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+    <link href="~/css/Admin/custom.css" rel="stylesheet" />
+    <link href="~/css/Admin/styles.css" rel="stylesheet" />
+    <link href="~/css/Admin/report.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    @*enfier*@
+    <link rel="stylesheet" href="~/lib/jqueryui/themes/base/theme.css" />
+    <link rel="stylesheet" href="~/lib/jqueryui/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="~/lib/elfinder/css/elfinder.full.css" />
+    <link rel="stylesheet" href="~/lib/elfinder/css/theme.min.css" />
+    <!-- JavaScript Libraries -->
+    <script src="~/js/Admin/jquery-3.5.1.js"></script>
+    <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+    <script src="~/lib/elfinder/js/elfinder.min.js"></script>
+    <link rel="stylesheet" href="~/css/elfinder-material-theme/Material/css/theme-gray.css" />
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand">NGO'S WEBSITE</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+
+        <!-- Navbar-->
+        <ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Welcome @Context.Session.GetString("FullName") <i class="fas fa-user fa-fw"></i></a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+
+                    <a class="dropdown-item">Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" asp-action="Logout" asp-controller="Account" asp-area="User">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAccounts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                            Account
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseAccounts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" asp-area="Admin" asp-controller="MAccount" asp-action="Index">Account List</a>
+                                <a class="nav-link" asp-area="Admin" asp-controller="MAccount" asp-action="CreateAccount">Create Account</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" asp-area="Admin" asp-controller="DonateCategory" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-list-alt"></i></div>
+                            Donate Category
+
+                        </a>
+
+                        <a class="nav-link collapsed" asp-area="Admin" asp-controller="Partner" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-handshake-o" aria-hidden="true"></i></div>
+                            Partner
+                        </a>
+                        <a class="nav-link collapsed" asp-area="Admin" asp-controller="Donate" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-donate"></i></div>
+                            Donate List
+                        </a>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePriceList" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-money-check-alt"></i></div>
+                            Programs
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapsePriceList" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" asp-area="Admin" asp-controller="Program" asp-action="Index">Program List</a>
+                                <a class="nav-link" asp-area="Admin" asp-controller="Program" asp-action="Create">Create Program</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link" asp-area="Admin" asp-action="Index" asp-controller="Interested">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Interested
+                        </a>
+                        <a class="nav-link" asp-area="Admin" asp-action="Index" asp-controller="Photo">
+                            <div class="sb-nav-link-icon"><i class="fas fa-image"></i></div>
+                            Photos Management
+                        </a>
+                        <a class="nav-link" asp-area="Admin" asp-controller="HelpCenter" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Reply and Queries
+                        </a>
+                        <a class="nav-link"asp-area="Admin" asp-action="ContactUs"  asp-controller="MAccount">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Contactus
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main role="main" class="pb-3">
+                <div class="container-fluid px-4">
+                    <partial name="_Notifications" />
+                    @RenderBody()
+                </div>
+
+            </main>
+        </div>
+    </div>
+    <script src="~/js/Admin/bootstrap.bundle.min.js"></script>
+    @*<script src="~/js/Admin/jquery.dataTables.min.js"></script>
+    <script src="~/js/Admin/dataTables.semanticui.min.js"></script>*@
+    @*<script src="~/js/Admin/semantic.min.js"></script>*@
+    <script src="~/js/Admin/sweetalert.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?client=gme-americancancersociety&v=3&libraries=places&channel=digital_strides"></script>
+    @*<script src="~/js/Admin/jquery-ui.js"></script>*@
+    <script src="~/js/Admin/html2pdf.bundle.js"></script>
+    <script src="~/js/Admin/scripts.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <!-- include summernote css/js -->
+    <script src="~/js/Admin/custom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js" integrity="sha512-u9akINsQsAkG9xjc1cnGF4zw5TFDwkxuc9vUp5dltDWYCSmyd0meygbvgXrlc/z7/o4a19Fb5V0OUE58J7dcyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>$("#tabs").tabs();</script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,58 @@
+﻿@model NGOWebApp.Models.ContactUs
+@{
+    ViewData["Title"] = "Contact";
+}
+<!-- Page Header Start -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Contact Us</h2>
+            </div>
+            <div class="col-12">
+                <a href="@Url.Content("~/User/Home")">Home</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Contact Start -->
+<div class="contact">
+    <div class="container">
+        <div class="section-header text-center">
+            <p>Get In Touch</p>
+            <h2>Contact for any query</h2>
+        </div>
+        <div class="contact-img">
+            <img src="~/images/img/contact.jpg" alt="Image">
+        </div>
+        <div class="contact-form">
+            
+            <form asp-action="Create" asp-controller="Contact" asp-area="User" method="post" name="sentMessage" id="contactForm">
+                <div class="control-group">
+                    <input type="text" class="form-control" id="name" placeholder="Your Name" required="required" asp-for="Name" />
+                    <p class="help-block text-danger"></p>
+                </div>
+                <div class="control-group">
+                    <input type="text" class="form-control" id="subject" placeholder="Phone" required="required" asp-for="Phone" />
+                    <p class="help-block text-danger"></p>
+                </div>
+                <div class="control-group">
+                    <input type="email" class="form-control" id="email" placeholder="Your Email" required="required" asp-for="Email" />
+                    <p class="help-block text-danger"></p>
+                </div>
+
+                <div class="control-group">
+                    <textarea class="form-control" id="message" placeholder="Message" required="required" asp-for="Content"></textarea>
+                    <p class="help-block text-danger"></p>
+                </div>
+                <div>
+                    <button class="btn btn-custom" type="submit">Send Message</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Contact End -->

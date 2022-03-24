@@ -1,0 +1,97 @@
+﻿@model IEnumerable<NGOWebApp.Models.Donate>
+@{
+    ViewData["Title"] = "ViewPartner";
+}
+
+<h1>View Partner</h1>
+<div autocomplete="off">
+    <div class="autocomplete" style="width:300px;">
+        <input id="myInput" type="text" name="" placeholder="Partner Name">
+    </div>
+    <button id="submit" value="Submit">Submit</button>
+</div>
+<div id="info">
+
+</div>
+
+<table id="demo">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Account Name</th>
+            <th>Account Email</th>
+            <th>Phone</th>
+            <th>Amount</th>
+            <th>Donate date</th>
+        </tr>
+    </thead>
+</table>
+
+@section Scripts{
+    <script>
+        /*An array containing all the country names in the world:*/
+        var countries = @Html.Raw(Json.Serialize(ViewBag.PartnerList));
+        /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+        autocomplete(document.getElementById("myInput"), countries);
+
+        jQuery(document).ready(function () {
+            $("#submit").click(function () {
+                var partnerName = $('#myInput').val();
+                getPartner(partnerName);
+                loadTable(partnerName);
+            });
+            $('#demo').hide();
+        });       
+        function getPartner(partnerName) {
+            axios
+                .get("http://localhost:29948/api/partner/" + partnerName)
+                .then(response => {
+                    this.data = response.data;
+                    console.log(response);
+                    if (response.status != 200) {
+                        $('#info').empty();
+                        $('#info').append('<div>No data for this Partner</div>')
+                    }
+                    else {
+                        var inf = '<div class="container emp-profile"><div class="row"><div class="col-md-4"><div class="profile-img"><img src="../../' + this.data.Partner.Logo + '" alt="" /></div></div><div class="col-md-6"><div class="profile-head"><h5>' + this.data.Partner.OrgName + ' </h5><h6>' + this.data.Partner.Email + '</h6><h6>Total Money:' + this.data.TotalMoney + '</h6><h6>Current Money:' + this.data.CurrentMoney + '</h6></div> </div></div ></div >'
+                        $('#info').empty();
+                        $('#info').append(inf);
+                    }
+                })
+                .catch(
+                    $('#info').empty()
+                )
+                ;
+        }
+        function loadTable(partnerName) {
+            $('#demo').show();
+            var t = $('#demo').DataTable({
+                
+                "ajax": {
+                    "url": "http://localhost:29948/api/donate/" + partnerName,
+                    "dataSrc": ""
+                },
+                "columns": [
+                    { "data": null },
+                    { "data": "Donate.GetAccount.FullName" },
+                    { "data": "Donate.GetAccount.Email" },
+                    { "data": "Donate.GetAccount.Phone" },
+                    { "data": "Donate.Amount" },
+                    { "data": "Donate.CreatedAt"},
+               ],
+
+                stateSave: true,
+               "bDestroy": true,                
+           });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        }      
+        function dataTable() {
+           $('#table-datatables').DataTable();
+          
+        };
+    </script>
+}

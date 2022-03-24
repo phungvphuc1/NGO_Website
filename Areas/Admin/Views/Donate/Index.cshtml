@@ -1,0 +1,297 @@
+﻿@model IEnumerable<NGOWebApp.Models.Donate>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Donate List</h1>
+
+
+<table id="table-datatables" >
+    <thead>
+        <tr>
+            <th></th>         
+            <th>
+                @Html.DisplayNameFor(model => model.GetAccount.Email)
+            </th>
+            <th>
+                Cause
+            </th>
+            <th>
+                Partner Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GetAccount.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GetDonateCategory.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GetPartner.OrgName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong-@item.Id">
+                        Details
+                    </button>
+                    <div class="modal fade" id="exampleModalLong-@item.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" style="width:80% !important" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Donate Details</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container emp-profile">
+                                        <form method="post">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="profile-img">
+                                                        <img src="~/@item.GetAccount.Avatar" alt="" />
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="profile-head">
+                                                        <h5>
+                                                            @item.GetAccount.FullName
+                                                        </h5>
+                                                        <h6>
+                                                            @item.GetAccount.Email
+                                                        </h6>                                                                                                           
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" id="donate-@item.Id-tab" data-toggle="tab" href="#donate-@item.Id" role="tab" aria-controls="donate-@item.Id" aria-selected="true">Donate</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="account-@item.Id-tab" data-toggle="tab" href="#account-@item.Id" role="tab" aria-controls="account-@item.Id" aria-selected="false">Account</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="partner-@item.Id-tab" data-toggle="tab" href="#partner-@item.Id" role="tab" aria-controls="partner-@item.Id" aria-selected="false">Partner</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="row">
+                                               
+                                                <div class="col-md-12">
+                                                    <div class="tab-content profile-tab" id="myTabContent">
+                                                        <div class="tab-pane fade show active" id="donate-@item.Id" role="tabpanel" aria-labelledby="donate-@item.Id-tab">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Donate Id</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.Id</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Donate Email</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.GetAccount.Email</p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Donate Cause</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.GetDonateCategory.Name</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>For Partner</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.GetPartner.OrgName</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Amount</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.Amount $</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Donate Date</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.CreatedAt</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="account-@item.Id" role="tabpanel" aria-labelledby="account-@item.Id-tab">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Id</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.AccountId</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Account Name</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.GetAccount.FullName</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Email</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.GetAccount.Email</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Phone</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.GetAccount.Phone</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Address</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.GetAccount.Address</p>
+                                                                </div>
+                                                            </div>                                                 
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Birthday</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.GetAccount.Birthday</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="partner-@item.Id" role="tabpanel" aria-labelledby="partner-@item.Id-tab">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Id</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.PartnerId</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Orginazation name</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.GetPartner.OrgName</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Email</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.GetPartner.Email</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Phone</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.GetPartner.Phone</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Address</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>@item.GetPartner.Address</p>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>           
+            <!-- Modal -->
+            
+        }
+    </tbody>
+</table>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var t = $('#table-datatables').DataTable({
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }],
+                "order": [[6, 'desc']]
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });
+
+    </script>
+   
+}

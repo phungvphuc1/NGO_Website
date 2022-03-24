@@ -1,0 +1,488 @@
+﻿@model NGOWebApp.Models.ViewModels.QuestionVM
+@using Microsoft.AspNetCore.Http
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+
+@section Styles
+{
+
+    <style type="text/css">
+        body {
+            margin-top: 0px;
+            background: #eee;
+        }
+
+        .padding {
+            padding: 10px;
+        }
+
+        /* GRID */
+        .col {
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            background: #fff;
+            color: #666666;
+            text-align: center;
+            font-weight: 400;
+            box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .row h3 {
+            color: #666666;
+        }
+
+        .row.grid {
+            margin-left: 0;
+        }
+
+        .grid {
+            position: relative;
+            width: 100%;
+            background: #fff;
+            color: #666666;
+            border-radius: 2px;
+            margin-bottom: 25px;
+            box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+        }
+
+            .grid .grid-header {
+                position: relative;
+                border-bottom: 1px solid #ddd;
+                padding: 15px 10px 10px 20px;
+            }
+
+                .grid .grid-header:before,
+                .grid .grid-header:after {
+                    display: table;
+                    content: " ";
+                }
+
+                .grid .grid-header:after {
+                    clear: both;
+                }
+
+                .grid .grid-header span,
+                .grid .grid-header > .fa {
+                    display: inline-block;
+                    margin: 0;
+                    font-weight: 300;
+                    font-size: 1.5em;
+                    float: left;
+                }
+
+                .grid .grid-header span {
+                    padding: 0 5px;
+                }
+
+                .grid .grid-header > .fa {
+                    padding: 5px 10px 0 0;
+                }
+
+                .grid .grid-header > .grid-tools {
+                    padding: 4px 10px;
+                }
+
+                    .grid .grid-header > .grid-tools a {
+                        color: #999999;
+                        padding-left: 10px;
+                        cursor: pointer;
+                    }
+
+                        .grid .grid-header > .grid-tools a:hover {
+                            color: #666666;
+                        }
+
+            .grid .grid-body {
+                padding: 15px 20px 15px 20px;
+                font-size: 0.9em;
+                line-height: 1.9em;
+            }
+
+            .grid .full {
+                padding: 0 !important;
+            }
+
+            .grid .transparent {
+                box-shadow: none !important;
+                margin: 0px !important;
+                border-radius: 0px !important;
+            }
+
+            .grid.top.black > .grid-header {
+                border-top-color: #000000 !important;
+            }
+
+            .grid.bottom.black > .grid-body {
+                border-bottom-color: #000000 !important;
+            }
+
+            .grid.top.blue > .grid-header {
+                border-top-color: #007be9 !important;
+            }
+
+            .grid.bottom.blue > .grid-body {
+                border-bottom-color: #007be9 !important;
+            }
+
+            .grid.top.green > .grid-header {
+                border-top-color: #00c273 !important;
+            }
+
+            .grid.bottom.green > .grid-body {
+                border-bottom-color: #00c273 !important;
+            }
+
+            .grid.top.purple > .grid-header {
+                border-top-color: #a700d3 !important;
+            }
+
+            .grid.bottom.purple > .grid-body {
+                border-bottom-color: #a700d3 !important;
+            }
+
+            .grid.top.red > .grid-header {
+                border-top-color: #dc1200 !important;
+            }
+
+            .grid.bottom.red > .grid-body {
+                border-bottom-color: #dc1200 !important;
+            }
+
+            .grid.top.orange > .grid-header {
+                border-top-color: #f46100 !important;
+            }
+
+            .grid.bottom.orange > .grid-body {
+                border-bottom-color: #f46100 !important;
+            }
+
+            .grid.no-border > .grid-header {
+                border-bottom: 0px !important;
+            }
+
+            .grid.top > .grid-header {
+                border-top-width: 4px !important;
+                border-top-style: solid !important;
+            }
+
+            .grid.bottom > .grid-body {
+                border-bottom-width: 4px !important;
+                border-bottom-style: solid !important;
+            }
+
+
+        /* SUPPORT TICKET */
+        .support ul {
+            list-style: none;
+            padding: 0px;
+        }
+
+            .support ul li {
+                padding: 8px 10px;
+            }
+
+                .support ul li a {
+                    color: #999;
+                    display: block;
+                }
+
+                    .support ul li a:hover {
+                        color: #666;
+                    }
+
+                .support ul li.active {
+                    background: #0073b7;
+                }
+
+                    .support ul li.active a {
+                        color: #fff;
+                    }
+
+            .support ul.support-label li {
+                padding: 2px 0px;
+            }
+
+        .support h2,
+        .support-content h2 {
+            margin-top: 5px;
+        }
+
+        .support-content .list-group li {
+            padding: 15px 20px 12px 20px;
+            cursor: pointer;
+        }
+
+            .support-content .list-group li:hover {
+                background: #eee;
+            }
+
+        .support-content .fa-padding .fa {
+            padding-top: 5px;
+            width: 1.5em;
+        }
+
+        .support-content .info {
+            color: #777;
+            margin: 0px;
+        }
+
+        .support-content a {
+            color: #111;
+        }
+
+        .support-content .info a:hover {
+            text-decoration: underline;
+        }
+
+        .support-content .info .fa {
+            width: 1.5em;
+            text-align: center;
+        }
+
+        .support-content .number {
+            color: #777;
+        }
+
+        .support-content img {
+            margin: 0 auto;
+            display: block;
+        }
+
+        .support-content .modal-body {
+            padding-bottom: 0px;
+        }
+
+        .support-content-comment {
+            padding: 10px 10px 10px 30px;
+            background: #eee;
+            border-top: 1px solid #ccc;
+        }
+
+
+        /* BACKGROUND COLORS */
+        .bg-red, .bg-yellow, .bg-aqua, .bg-blue, .bg-light-blue, .bg-green, .bg-navy, .bg-teal, .bg-olive, .bg-lime, .bg-orange, .bg-fuchsia, .bg-purple, .bg-maroon, bg-gray, bg-black, .bg-red a, .bg-yellow a, .bg-aqua a, .bg-blue a, .bg-light-blue a, .bg-green a, .bg-navy a, .bg-teal a, .bg-olive a, .bg-lime a, .bg-orange a, .bg-fuchsia a, .bg-purple a, .bg-maroon a, bg-gray a, .bg-black a {
+            color: #f9f9f9 !important;
+        }
+
+        .bg-white, .bg-white a {
+            color: #999999 !important;
+        }
+
+        .bg-red {
+            background-color: #f56954 !important;
+        }
+
+        .bg-yellow {
+            background-color: #f39c12 !important;
+        }
+
+        .bg-aqua {
+            background-color: #00c0ef !important;
+        }
+
+        .bg-blue {
+            background-color: #0073b7 !important;
+        }
+
+        .bg-light-blue {
+            background-color: #3c8dbc !important;
+        }
+
+        .bg-green {
+            background-color: #00a65a !important;
+        }
+
+        .bg-navy {
+            background-color: #001f3f !important;
+        }
+
+        .bg-teal {
+            background-color: #39cccc !important;
+        }
+
+        .bg-olive {
+            background-color: #3d9970 !important;
+        }
+
+        .bg-lime {
+            background-color: #01ff70 !important;
+        }
+
+        .bg-orange {
+            background-color: #ff851b !important;
+        }
+
+        .bg-fuchsia {
+            background-color: #f012be !important;
+        }
+
+        .bg-purple {
+            background-color: #932ab6 !important;
+        }
+
+        .bg-maroon {
+            background-color: #85144b !important;
+        }
+
+        .bg-gray {
+            background-color: #eaeaec !important;
+        }
+
+        .bg-black {
+            background-color: #222222 !important;
+        }
+    </style>
+}
+
+<!-- Page Header Start -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Help Center</h2>
+            </div>
+            <div class="col-12">
+                <a href="@Url.Content("~/User/Home")">Home</a>
+                <a href="#">Help Center</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container">
+    <section class="content mt-5">
+        <div class="row">
+            <!-- BEGIN NAV TICKET -->
+            <div class="col-md-3">
+                <div class="grid support">
+                    <div class="grid-body">
+                        <h2>Browse</h2>
+
+                        <hr>
+
+                        <ul class="notao">
+                            @if (Context.Session.GetInt32("AccountId") != null)
+                            {
+                                <li class="active"><a href="#">Everyone's Issues<span class="pull-right"> @Model.Queries.Where(u => u.Status == 1 || u.Status == 3).Count()</span></a></li>
+                                <li><a asp-action="IndexAcccout">Created by you<span class="pull-right"> @Model.Queries.Where(u => u.AccountId == Context.Session.GetInt32("AccountId")).Count()</span></a></li>
+                                <li><a asp-action="CommonView">Common Issues<span class="pull-right"></span></a></li>
+                            }
+                            else
+                            {
+                                <li class="active"><a href="#">Everyone's Issues<span class="pull-right"> @Model.Queries.Where(u => u.Status == 1 || u.Status == 3).Count()</span></a></li>
+                                <li><a asp-action="CommonView">Common Issues<span class="pull-right"></span></a></li>
+                            }
+
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <!-- END NAV TICKET -->
+            <!-- BEGIN TICKET -->
+            <div class="col-md-9">
+                <div class="grid support-content">
+                    <div class="grid-body">
+                        <h2>Issues</h2>
+
+                        <hr>
+
+
+
+                        <!-- BEGIN NEW TICKET -->
+                        @if (Context.Session.GetInt32("FullName") != null)
+                        {
+                            <a asp-action="QuestionCreate" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> &nbsp; New Issue
+                            </a>
+                        }
+                        else
+                        {
+
+                            <a href="@Url.Content("~/User/Account/Login")" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> &nbsp; Please login to create new issue
+                            </a>
+
+                        }
+                        <!-- END NEW TICKET -->
+
+                        <div class="padding"></div>
+
+                        <div class="row">
+                            <!-- BEGIN TICKET CONTENT -->
+                            <div class="col-md-12">
+                                @if (Model.Queries.Count() > 0)
+                                {
+                                    <ul class="list-group fa-padding">
+
+                                        @foreach (var ques in Model.OnePageQueries)
+                                        {
+                                            var countComment = 0;
+                                            @foreach (var rep in Model.Replies)
+                                            {
+                                                if (rep.QueryId == ques.Id)
+                                                {
+                                                    countComment++;
+                                                }
+                                            }
+                                            <li class="list-group-item filter @ques.AccountId" data-toggle="modal" data-target="#issue">
+                                                <div class="media">
+                                                    <div class="media-body">
+                                                        <a asp-action="QuestionView" asp-route-Id="@ques.Id">
+                                                            <strong>@ques.Title</strong>
+                                                            <p>@ques.Content</p>
+                                                            <p class="info">Asked by @ques.GetAccount.FullName at @String.Format("{0:dd/MM/yyyy}", ques.CreatedAt) <i class="fa fa-comments"></i>@countComment answers</p>
+                                                        </a>
+                                                    </div>
+
+                                                </div>
+                                            </li>
+                                        }
+
+                                    </ul>
+
+
+                                    <div class="row  mt-3 float-right">
+                                        @Html.PagedListPager((IPagedList)Model.OnePageQueries, page => Url.Action("Index", new { page = page }),
+                                new X.PagedList.Mvc.Common.PagedListRenderOptions
+                                {
+                                    DisplayItemSliceAndTotal = true,
+                                    ContainerDivClasses = new[] { "navigation" },
+                                    LiElementClasses = new[] { "page-item" },
+                                    PageClasses = new[] { "page-link" },
+                                })
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <p>No Question Exist</p>
+                                }
+
+
+                            </div>
+                            <!-- END TICKET CONTENT -->
+                            <!-- paging control for navigation to the previous page, next page, etc -->
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END TICKET -->
+        </div>
+    </section>
+</div>
+
+
+@section Scripts{
+    <script>
+ 
+        $(document).ready(function () {
+            $('ul.pagination > li.disabled > a').addClass('page-link');
+        });
+    </script>
+}

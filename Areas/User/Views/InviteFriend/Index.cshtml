@@ -1,0 +1,72 @@
+﻿@model Email
+<!-- Page Header Start -->
+
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Volunteer</h2>
+            </div>
+            <div class="col-12">
+                <a href="@Url.Content("~/User/Home")">Home</a>
+                <a href="#">Invite your friend</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Volunteer Start -->
+<div class="container">
+    @if (ViewBag.EmailSentMessage != null)
+    {
+<div class="d-flex justify-content-center alert alert-success">
+    <label>@ViewBag.EmailSentMessage</label>
+</div>}
+    <div class="volunteer" data-parallax="scroll" data-image-src="../../images/img/volunteer.jpg">
+        <div class="row align-items-center">
+            <div class="col-lg-5">
+                <div class="volunteer-form">
+                    <form method="post">
+                        <div class="control-group">
+                            <input type="text" class="form-control" placeholder="Name" asp-for="UserName" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="control-group">
+                            <input type="email" class="form-control" placeholder="Email" asp-for="Recipient" />
+                            <span asp-validation-for="Recipient" class="text-danger"></span>
+                        </div>
+                        <div class="control-group">
+                            <textarea class="form-control" placeholder="Write content to send email?" asp-for="Description"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <input type="submit" value="Send Email" class="btn  btn-custom float-right" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="volunteer-content">
+                    <div class="section-header">
+                        <p>Ask your friend to joy</p>
+                        <h2>Let’s make a difference in the lives of others</h2>
+                    </div>
+                    <div class="volunteer-text">
+                        <p>
+                            Send email to your friend, ask them to join NGO comunity
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Volunteer End -->
+
+@section Scripts{
+
+    @{
+                        <partial name="_ValidationScriptsPartial" /> }
+
+}

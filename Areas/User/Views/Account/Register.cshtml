@@ -1,0 +1,95 @@
+﻿@model NGOWebApp.Models.ViewModels.AccountVM
+<!-- Page Header Start -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Register</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
+                <div class="card-body">
+                    <form asp-action="Register" asp-controller="Account" asp-area="User" method="post">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="inputFulltName">Fullname</label>
+                                    <input class="form-control py-4" type="text" placeholder="Enter fullname" asp-for="Account.FullName" />
+                                    <span asp-validation-for="Account.FullName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputEmail">Email</label>
+                            <input class="form-control py-4" type="text" placeholder="Enter email address" asp-for="Account.Email" />
+                            <span asp-validation-for="Account.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputPhone">Phone</label>
+                            <input class="form-control py-4" type="text" placeholder="Enter phone" asp-for="Account.Phone" />
+                            <span asp-validation-for="Account.Phone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputAddress">Address</label>
+                            <input class="form-control py-4" type="text" placeholder="Enter address" asp-for="Account.Address" />
+                            <span asp-validation-for="Account.Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputBirthday">Birthday</label>
+                            <input class="form-control py-4" type="date" placeholder="Enter address" asp-for="Account.Birthday" value="0"/>
+                            <span asp-validation-for="Account.Birthday" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="inputPassword">Password</label>
+                                    <input class="form-control py-4" type="password" placeholder="Enter password" asp-for="Account.Password" id="password" />
+                                    <span asp-validation-for="Account.Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="inputConfirmPassword">Confirm Password</label>
+                                     <input class="form-control py-4" type="password" placeholder="Confirm password" name="confirmpassword" id="confirm_password"/>
+                                    <span class="text-danger" id="message"></span>
+                                </div>
+                            </div>
+                        </div>
+                        @if (Model.ExistsAccount == true)
+                        {
+            <p style="color:red">Email already exists</p>}
+                        <div class="form-group mt-4 mb-0"><input type="submit" class="btn btn-primary btn-block" value="Create Account" /></div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <div class="large"><a asp-action="Login" asp-controller="Account" asp-area="User">Have an account? Go to login</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    @{
+       <partial name="_ValidationScriptsPartial" /> 
+       
+    } 
+
+    <script>
+        $('#password, #confirm_password').on('keyup', function () {
+            if ($('#password').val() == $('#confirm_password').val()) {
+                $('#message').html('Matching').css('color', 'green');
+            } else
+                $('#message').html('Not Matching').css('color', 'red');
+        });
+    </script>
+
+}

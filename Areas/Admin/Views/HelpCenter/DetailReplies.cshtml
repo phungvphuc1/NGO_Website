@@ -1,0 +1,151 @@
+﻿@model NGOWebApp.Models.ViewModels.QuestionVM
+@using Microsoft.AspNetCore.Http
+
+
+@section Styles
+{
+
+    <style type="text/css">
+        /*Detail Anserwerd*/
+
+        .comment-wrapper .panel-body {
+            max-height: 650px;
+            overflow: auto;
+        }
+
+        .comment-wrapper .media-list .media img {
+            width: 64px;
+            height: 64px;
+            border: 2px solid #e5e7e8;
+        }
+
+        .comment-wrapper .media-list .media {
+            border-bottom: 1px dashed #efefef;
+            margin-bottom: 25px;
+        }
+    </style>
+}
+
+    <div class="container p-5">
+     
+            <div>
+           
+                    <div class="grid support-content">
+                        <div class="grid-body">
+                            <strong>@Model.query.Title</strong>
+
+                            <p class="info">Asked by @Model.query.GetAccount.FullName at @String.Format("{0:dd/MM/yyyy}", Model.query.CreatedAt) <i class="fa fa-comments"></i> @Model.Replies.Count() answers</p>
+                            <hr>
+                          
+                                <div class="bootstrap snippets bootdeys">
+                                    <div class="comment-wrapper">
+                                        <div class="panel panel-info">
+                                            <p>@Model.query.Content</p>
+                                            <div class="panel-heading mb-2">
+                                                Answer panel
+                                            </div>
+                                            <div class="panel-body">
+
+                                                <ul class="media-list">
+                                                    @if (Model.Replies.Count() > 0)
+                                                    {
+                                                        @foreach (var obj in Model.Replies)
+                                                        {
+                                                            string check;
+                                                            if (obj.GetAccount.RoleId == 1)
+                                                            {
+                                                                check = "Admin";
+                                                            }
+                                                            else
+                                                            {
+                                                                check = "User";
+                                                            }
+                                                    <li class="media">
+                                                        <a href="#" class="pull-left">
+                                                            <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
+                                                        </a>
+                                                        <div class="media-body ml-2">
+                                                            <span class="text-muted pull-right">
+                                                                <small class="text-muted">  @String.Format("{0:dd/MM/yyyy}", obj.CreatedAt)</small>
+                                                            </span>
+                                                            <strong class="text-success">@obj.GetAccount.FullName </strong> <small class="font-weight-bold"> by @check </small>
+                                                            <p>
+
+                                                                @obj.Content
+                                                            </p>
+                                                        </div>
+                                                        @if (Context.Session.GetInt32("Role") == 1)
+                                                        {
+                                                            <div class="w-20 btn-group mb-2" role="group">
+                                                                <a asp-route-Id="@obj.Id" asp-action="DeleteAnswered" class="btn btn-danger btn-sm mx-2">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </a>
+                                                            </div>
+                                                        }
+
+
+                                                    </li>
+
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <li> <p>No answer about this question </p>  </li>
+                                                    }
+
+
+
+
+                                                </ul>
+
+                                                @if (Context.Session.GetInt32("Role") == 1)
+                                                {
+                                                    <form method="post" asp-action="DetailReplies">
+
+                                                        <input asp-for="reply.Id" type="hidden" />
+                                                        <input type="hidden" asp-for="query.Id" />
+
+                                                        <textarea class="form-control" placeholder="write a comment..." rows="3" cols="100%" asp-for="reply.Content"></textarea>
+                                                        <span asp-validation-for="reply.Content" class="text-danger"></span>
+
+                                                        <input asp-for="reply.AccountId" hidden value="@Context.Session.GetInt32("AccountId")" />
+
+                                                        <input asp-for="reply.QueryId" hidden value="@Model.query.Id" />
+
+                                                        <br>
+                                                        <a asp-action="Index" class="btn btn-success float-right ml-2">
+                                                            Back
+                                                        </a>
+                                                        <input type="submit" class="btn btn-info float-right" value="Post" />
+
+                                                    </form>
+                                                }
+
+
+
+                                                <div class="clearfix"></div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                          
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+
+
+
+@section Scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}

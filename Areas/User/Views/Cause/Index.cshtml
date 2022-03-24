@@ -1,0 +1,185 @@
+﻿@model IEnumerable<NGOWebApp.Models.ViewModels.ProgramDonateVM>
+@{
+    ViewData["Title"] = "Cause";
+}
+<!-- Page Header Start -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Popular Causes</h2>
+            </div>
+            <div class="col-12">
+                <a href="@Url.Content("~/User/Home")">Home</a>
+                <a href="#">Causes</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Service Start -->
+<div class="service">
+    <div class="container">
+        <div class="section-header text-center">
+            <p>What We Do?</p>
+            <h2>We believe that we can save more lifes with you</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="flaticon-diet"></i>
+                    </div>
+                    <div class="service-text">
+                        <h3>Healthy Food</h3>
+                        <p>Healthy Food Guide makes it easy and enjoyable to eat well and feel great. Thousands of healthy recipes, expert nutrition advice you can trust</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="flaticon-water"></i>
+                    </div>
+                    <div class="service-text">
+                        <h3>Pure Water</h3>
+                        <p>Purified water is water that has been mechanically filtered or processed to remove impurities and make it suitable for use. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="flaticon-healthcare"></i>
+                    </div>
+                    <div class="service-text">
+                        <h3>Health Care</h3>
+                        <p>Healthcare is the maintenance or improvement of health via the prevention, diagnosis, treatment</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="flaticon-education"></i>
+                    </div>
+                    <div class="service-text">
+                        <h3>Primary Education</h3>
+                        <p>The Primary Education Program trains teachers with a heart of love and respect for people</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="flaticon-home"></i>
+                    </div>
+                    <div class="service-text">
+                        <h3>Residence Facilities</h3>
+                        <p>The Residence features many facilities and amenities to help make your stay on campus enjoyable</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="flaticon-social-care"></i>
+                    </div>
+                    <div class="service-text">
+                        <h3>Social Care</h3>
+                        <p>Care services, equipment and care homes. Includes home adaptations, help at home from a paid carer, staying safe and housing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Service End -->
+<div class="event">
+    <div class="container">
+        <div class="section-header text-center">         
+            <h2>My Cause</h2>
+        </div>
+        <div class="row">
+            @{
+                var model = ViewBag.CauseList;
+            }
+            @foreach (var item in model)
+            {
+                <div class="col-md-4" style="margin-top:15px">
+                    <div class="card" style="width: 18rem;">
+                        <div style="height:180px">
+                            <img class="card-img-top" style="height:100%" src="@linkImage.imgPath@item.Photo" alt="Card image cap">
+                        </div>
+
+                        <div class="card-body">
+                            <h6 class="card-title">@item.Name</h6>
+                            @*<p style="color:darkcyan">Phone: &nbsp; @item.GetPartner.Phone</p>
+                            <p style="color:darkcyan">Campaign: &nbsp; @item.SumProgram</p>*@
+
+
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+<!-- Causes Start -->
+<div class="causes">
+    <div class="container">
+        <div class="section-header text-center">
+            <p>Popular Campaign</p>
+            <h2>Let's know about charity causes around the world</h2>
+        </div>
+        <div class="owl-carousel causes-carousel">
+            @foreach (var item in Model)
+            {
+                <div class="causes-item">
+                    <div class="causes-img" style="height:190px">
+                        <img src="~/@item.Programs.Photo" alt="Image">
+                    </div>
+                    <div class="causes-progress">
+                        <div class="progress">
+                            @{ var a = (decimal)(@item.SumDonate / @item.Programs.ExpectedAmount);}
+                            <div class="progress-bar" role="progressbar" aria-valuenow="@Math.Round(a*100,0)" aria-valuemin="0" aria-valuemax="100">
+                                <span>@Math.Round((decimal)(item.SumDonate / item.Programs.ExpectedAmount) * 100, 0)</span>
+                            </div>
+                        </div>
+                        <div class="progress-text">
+                            <p><strong> @item.SumDonate / @item.Programs.ExpectedAmount $</strong></p>
+                           
+                        </div>
+                    </div>
+                    <div class="causes-text">
+                        <div style="height:180px">
+                            @if (item.Programs.ShortContent.Length > 120)
+                            {
+                                <h4>@item.Programs.ShortContent.Substring(0, 120) ...</h4>
+                            }
+                            else
+                            {
+                                <h4>@item.Programs.ShortContent</h4>
+                            }
+
+                        </div>
+                        <div class="row" style="height:40px">
+                            <div class="col-sm-3"><img  src="~/images/LogoPartner/@item.Programs.GetPartner.Logo" /></div>
+                            <div class="col-sm-6" style="color:mediumaquamarine">@item.Programs.GetPartner.OrgName</div>
+                            <div class="col-sm-3 text-danger" style="font-size:15px">@item.DateDiff day left</div>
+                        </div>
+                       
+                    </div>
+                    <div class="causes-btn" style="height:50px">
+                        <a class="btn btn-custom" asp-action="Details" asp-controller="Event" asp-route-Id="@item.Programs.Id">Learn More</a>
+                        <a class="btn btn-custom" asp-area="User" asp-controller="Donate" asp-action="DonateToProgram" asp-route-programId="@item.Programs.Id">Donate Now</a>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>
+<!-- Causes End -->

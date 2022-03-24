@@ -1,0 +1,124 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\css\elFinder-Material-Theme\.github\img\preview-default.png" />
+    <Content Include="wwwroot\css\elFinder-Material-Theme\.github\img\preview-gray.png" />
+    <Content Include="wwwroot\css\elFinder-Material-Theme\.github\img\preview-light.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="elFinder.NetCore" Version="1.3.6" />
+    <PackageReference Include="Grpc.Core" Version="2.42.0" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
+    <PackageReference Include="ReflectionIT.Mvc.Paging" Version="5.0.0" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="7.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Files\Data\" />
+    <Folder Include="Areas\Files\Models\" />
+    <Folder Include="Services\Implements\" />
+    <Folder Include="Services\Interfaces\" />
+    <Folder Include="wwwroot\css\elFinder-Material-Theme\.git\objects\info\" />
+    <Folder Include="wwwroot\css\elFinder-Material-Theme\.git\refs\tags\" />
+    <Folder Include="wwwroot\images\LogoPartner\" />
+    <Folder Include="wwwroot\files\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\elFinder-Material-Theme\.github\FUNDING.yml" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\config" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\description" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\HEAD" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\hooks\applypatch-msg.sample" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\hooks\commit-msg.sample" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\hooks\fsmonitor-watchman.sample" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\hooks\post-update.sample" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\hooks\pre-applypatch.sample" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\hooks\pre-commit.sample" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\hooks\pre-merge-commit.sample" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\hooks\pre-push.sample" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\hooks\pre-rebase.sample" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\hooks\pre-receive.sample" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\hooks\prepare-commit-msg.sample" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\hooks\push-to-checkout.sample" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\hooks\update.sample" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\index" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\info\exclude" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\logs\HEAD" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\logs\refs\heads\master" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\logs\refs\remotes\origin\HEAD" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\objects\pack\pack-ad98a0dca4e115f5660f801c420c86fa6c252929.idx" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\objects\pack\pack-ad98a0dca4e115f5660f801c420c86fa6c252929.pack" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\packed-refs" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\refs\heads\master" />
+    <None Include="wwwroot\css\elFinder-Material-Theme\.git\refs\remotes\origin\HEAD" />
+    <None Include="wwwroot\lib\toasttr\build\toastr.js.map" />
+    <None Include="wwwroot\lib\toasttr\build\toastr.min.js" />
+    <None Include="wwwroot\lib\toasttr\nuget\content\content\toastr.less" />
+    <None Include="wwwroot\lib\toasttr\nuget\content\content\toastr.scss" />
+    <None Include="wwwroot\lib\toasttr\nuget\content\scripts\toastr.js" />
+    <None Include="wwwroot\lib\toasttr\nuget\content\scripts\toastr.min.js" />
+    <None Include="wwwroot\lib\toasttr\nuget\content\scripts\toastr.min.js.map" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.0.0.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.0.0.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.0.1.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.0.1.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.0.2.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.0.2.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.0.3.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.0.3.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.1.0.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.1.0.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.1.1.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.1.1.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.1.2.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.1.2.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.1.3.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.1.4.1.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.1.4.1.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.1.4.2.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.1.4.2.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.1.4.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.1.4.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.1.5.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.1.5.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.2.0.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.2.0.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.2.1.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.2.1.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.2.2.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.2.2.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.3.0.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.3.0.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.3.1.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.1.3.1.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.2.0.0-rc1.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.2.0.0-rc1.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.2.0.1.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.2.0.1.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.2.0.2.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.2.0.2.nuspec" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.2.0.3.nupkg" />
+    <None Include="wwwroot\lib\toasttr\nuget\toastr.2.0.3.nuspec" />
+    <None Include="wwwroot\lib\toasttr\tests\qunit\qunit.js" />
+    <None Include="wwwroot\lib\toasttr\tests\unit\qunit-helper.js" />
+    <None Include="wwwroot\lib\toasttr\tests\unit\toastr-tests.js" />
+    <None Include="wwwroot\lib\toasttr\tests\unit\x.js" />
+  </ItemGroup>
+
+
+</Project>

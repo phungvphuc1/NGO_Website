@@ -1,0 +1,130 @@
+﻿@model IEnumerable<NGOWebApp.Models.Account>
+
+@{
+    ViewData["Title"] = "Interested - Admin";
+}
+<h3>List Interested</h3>
+<table class="table" id="table-datatables">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong-@item.Id">
+                       View List
+                    </button>
+                    <div class="modal fade" id="exampleModalLong-@item.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" style="max-width:1500px!important; width:80% !important;text-align:center" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Donate Details</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Campaign</th>
+                                                <th>Partner</th>
+                                                <th>Status</th>
+                                                <th>Date Start</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{ var index = 0;} 
+                                            @foreach (var program in item.GetInteresteds)
+                                            {
+                                            <tr>
+                                                @{ index++;}
+                                                <td>@index</td>
+                                                <td>@program.GetPrograms.ShortContent</td>
+                                                <td>@program.GetPrograms.GetPartner.OrgName</td>
+                                                <td>
+                                                    @if (program.GetPrograms.Status == 1)
+                                                    {
+                                                        <span class="badge badge-pill badge-primary">Call for Donations</span>
+                                                    }
+                                                    else if (program.GetPrograms.Status == 2)
+                                                    {
+                                                        <span class="badge badge-pill badge-warning">Donation has been completed</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-pill badge-success">Completed Campaign</span>
+                                                    }
+                                                </td>                                            
+                                                <td>@program.GetPrograms.CreatedAt</td>
+                                            </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var t = $('#table-datatables').DataTable({
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }],
+                "order": [[2, 'desc']]
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });
+
+    </script>
+
+}

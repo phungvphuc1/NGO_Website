@@ -1,0 +1,132 @@
+﻿
+@{ ViewData["Title"] = "Dash Board"; }
+<main>
+    <div class="container-fluid">
+        <h1 class="mt-4">Dashboard</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+        <div class="row">
+            <div class="col-xl-4 col-md-4">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">Total Donate:&nbsp;&nbsp;&nbsp;@ViewBag.TotalDonate $</div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-4">
+                <div class="card bg-warning text-white mb-4">
+                    <div class="card-body">Unrealized donation:&nbsp;&nbsp;&nbsp;@ViewBag.unSuccess $ </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-4">
+                <div class="card bg-success text-white mb-4">
+                    <div class="card-body">Donations made:&nbsp;&nbsp;&nbsp;@ViewBag.Success $</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area mr-1"></i>
+                        Pie Chart
+                    </div>
+                    <div class="card-body"><div id="piediv"></div></div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area mr-1"></i>
+                        Bar Chart
+                    </div>
+                    <div class="card-body"><div id="bardiv"></div></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area mr-1"></i>
+                        Area Chart
+                    </div>
+                    <div class="card-body"><canvas id="myAreaChart" width="100" height="40" data-month='@ViewBag.totalDays'></canvas></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@section Scripts {
+    <script src="~/js/Admin/Chart.min.js"></script>
+    <script src="~/js/Admin/area.js"></script>
+    <script src="~/js/Admin/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawOnLoad1);
+        google.charts.setOnLoadCallback(drawOnLoad2);
+        function drawOnLoad1() {
+            $(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:29948/Admin/Home/GetPieChart',
+                    success: function (chartsdata) {
+
+                        var Data = chartsdata.jsonList;
+                        console.log(chartsdata);
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', 'Cause');
+                        data.addColumn('number', 'Total Donate');
+                        for (var i = 0; i < Data.length; i++) {
+                            data.addRow([Data[i].catName,
+                            Data[i].sumDonate]);
+                        }
+
+                        var piechart = new google.visualization.PieChart(
+                            document.getElementById('piediv'));
+                        piechart.draw(data,
+                            {
+                                title: "Donate Category",
+                                position: "top",
+                                fontsize: "15px",
+                            });
+
+
+                    }
+                });
+
+            })
+        };
+        function drawOnLoad2() {
+            $(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:29948/Admin/Home/GetBarChart',
+                    success: function (chartsdata) {
+
+                        var Data = chartsdata.jsonList;
+                        console.log(chartsdata);
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', 'Partner');
+                        data.addColumn('number', 'Total Donate');
+                        for (var i = 0; i < Data.length; i++) {
+                            data.addRow([Data[i].partnerName,
+                            Data[i].sumDonate]);
+                        }
+                        var barchart = new google.visualization.BarChart(
+                            document.getElementById('bardiv'));
+                        barchart.draw(data, {
+                            title: "Donate For Partner"
+                        });
+
+
+                    }
+                });
+
+            })
+        };
+
+
+    </script>
+
+}
+

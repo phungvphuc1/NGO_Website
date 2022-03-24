@@ -1,0 +1,192 @@
+﻿@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>NGO</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+
+    <!-- Favicon -->
+    <link href="~/images/img/favicon.ico" rel="icon">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- CSS Libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link href="~/lib/User/flaticon/font/flaticon.css" rel="stylesheet" />
+    <link href="~/lib/User/animate/animate.min.css" rel="stylesheet" />
+    <link href="~/lib/User/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <!-- Template Stylesheet -->
+    <link href="~/css/User/style.css" rel="stylesheet" />
+    @RenderSection("Styles", required: false)
+
+</head>
+
+<body>
+    <!-- Top Bar Start -->
+    <div class="top-bar d-none d-md-block">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="top-bar-left">
+                        <div class="text">
+                            <i class="fa fa-phone-alt"></i>
+                            <p>+123 456 7890</p>
+                        </div>
+                        <div class="text">
+                            <i class="fa fa-envelope"></i>
+                            <p>ngowebsitedonate@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="top-bar-right">
+                        <div class="social">
+                            <a href=""><i class="fab fa-twitter"></i></a>
+                            <a href=""><i class="fab fa-facebook-f"></i></a>
+                            <a href=""><i class="fab fa-linkedin-in"></i></a>
+                            <a href=""><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Top Bar End -->
+    <!-- Nav Bar Start -->
+    <div class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container-fluid">
+            <a href="@Url.Content("~/User/Home")" class="navbar-brand">NGO</a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav ml-auto">
+                    <!--Main nav menu-->
+                    <a href="@Url.Content("~/User/Home")" class="nav-item nav-link">Home</a>
+                    <a href="@Url.Content("~/User/About")" class="nav-item nav-link">About</a>
+                    <a href="@Url.Content("~/User/Partner")" class="nav-item nav-link">Our Partners</a>
+                    <a href="@Url.Content("~/User/Cause")" class="nav-item nav-link">Cause</a>
+                    <a href="@Url.Content("~/User/Event")" class="nav-item nav-link">Campaign</a>
+                    <a href="@Url.Content("~/User/Contact")" class="nav-item nav-link">Contact</a>
+                    <!--More choice-->
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu">
+                            <a href="@Url.Content("~/User/InviteFriend")" class="dropdown-item">Invite your friend</a>
+                            <a class="dropdown-item" asp-action="CommonView" asp-controller="Raise" asp-area="User">Help Center</a>
+
+                        </div>
+                    </div>
+                    @if (Context.Session.GetString("FullName") != null)
+                    {
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Welcome @Context.Session.GetString("FullName")</a>
+                            <div class="dropdown-menu">
+                                <a href="@Url.Content("~/User/Account/UserProfile")" class="dropdown-item">My Profile</a>
+                                <a href="@Url.Content("~/User/Donate/Index")" class="dropdown-item">Donate</a>
+                                <a class="dropdown-item" asp-action="Logout" asp-controller="Account" asp-area="User">Logout</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <a href="@Url.Content("~/User/Account/Login")" class="nav-item nav-link">Login</a>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Nav Bar End -->
+    <partial name="_Notifications" />
+    @RenderBody()
+
+    <!-- Footer Start -->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-contact">
+                        <h2>Our Head Office</h2>
+                        <p><i class="fa fa-map-marker-alt"></i>123 CMT, Distric 3, HCM</p>
+                        <p><i class="fa fa-phone-alt"></i>+012 345 67890</p>
+                        <p><i class="fa fa-envelope"></i>info@example.com</p>
+                        <div class="footer-social">
+                            <a class="btn btn-custom" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-custom" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-custom" href=""><i class="fab fa-youtube"></i></a>
+                            <a class="btn btn-custom" href=""><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-custom" href=""><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-link">
+                        <h2>Popular Links</h2>
+                        <a href="@Url.Content("~/User/About")">About Us</a>
+                        <a href="@Url.Content("~/User/Contact")">Contact Us</a>
+                        <a href="@Url.Content("~/User/Cause")">Popular Causes</a>
+                        <a href="@Url.Content("~/User/Event")">Upcoming Campaign</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-link">
+                        <h2>Useful Links</h2>
+                        <a href="@Url.Content("~/User/Raise")">Help</a>
+                        <a href="@Url.Content("~/User/Raise")">FQAs</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-newsletter">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.319281359263!2d106.66408561524108!3d10.786840061949958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ed2392c44df%3A0xd2ecb62e0d050fe9!2zRlBUIEFwdGVjaCBIQ00gLSBI4buHIFRo4buRbmcgxJDDoG8gVOG6oW8gTOG6rXAgVHLDrG5oIFZpw6puIFF14buRYyBU4bq_IChTaW5jZSAxOTk5KQ!5e0!3m2!1svi!2s!4v1640695578333!5m2!1svi!2s" width="300" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container copyright">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; <a href="#">Your Site Name</a>, All Right Reserved.</p>
+                </div>
+                <div class="col-md-6">
+                    <p>Designed By <a href="https://htmlcodex.com">HTML Codex</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+    <!-- Back to top button -->
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+    <!-- Pre Loader -->
+    <div id="loader" class="show">
+        <div class="loader"></div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/User/easing/easing.min.js"></script>
+    <script src="~/lib/User/owlcarousel/owl.carousel.min.js"></script>
+    <script src="~/lib/User/waypoints/waypoints.min.js"></script>
+    <script src="~/lib/User/counterup/counterup.min.js"></script>
+    <script src="~/lib/User/parallax/parallax.min.js"></script>
+    <!-- Contact Javascript File -->
+    <script src="~/mail/jqBootstrapValidation.min.js"></script>
+    @*<script src="~/mail/contact.js"></script>*@
+
+    <!-- Template Javascript -->
+    <script src="~/js/User/main.js"></script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

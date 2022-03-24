@@ -1,0 +1,152 @@
+﻿@model NGOWebApp.Models.ViewModels.PartnerVM
+
+@{ var title = "Create Partner"; }
+
+<form method="post" enctype="multipart/form-data" class="mt-5">
+    @if (Model.Partner.Id != 0)
+    {
+        title = "Update Partner";
+<input asp-for="Partner.Id" hidden />}
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-info pl-3"> @title</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Partner.OrgName"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Partner.OrgName" class="form-control" />
+                        <span asp-validation-for="Partner.OrgName" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Partner.Email"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Partner.Email" class="form-control" />
+                        <span asp-validation-for="Partner.Email" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Partner.Phone"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Partner.Phone" class="form-control" />
+                        <span asp-validation-for="Partner.Phone" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Partner.Address"></label>
+                    </div>
+                    <div class="col-8">
+                        <textarea asp-for="Partner.Address" class="form-control" rows="4" cols="50"></textarea>
+                        <span asp-validation-for="Partner.Address" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Partner.CategoryId"></label>
+                    </div>
+                    <div class="col-8">
+
+                        <select asp-for="Partner.CategoryId" asp-items="@Model.CategorySelectList" class="form-control">
+                            <option disabled selected>----Select----</option>
+                        </select>
+                        <span asp-validation-for="Partner.CategoryId" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        Logo
+                    </div>
+                    <div class="col-8">
+                        <input type="file" name="files" id="uploadBox" multiple class="form-control" />
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+                        <div class="col">
+                            @if (Model.Partner.Id != 0)
+                            {
+                                //update
+                <input type="submit" class="btn btn-info w-100" value="Update" /> }
+                            else
+                            {
+                                //create
+                <input type="submit" onclick="return validationInput()" class="btn btn-primary w-100" value="Create" />}
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100">
+                                <i class="fas fa-sign-out-alt"></i>  Back
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @* Keep this empty *@
+                @if (Model.Partner.Id != 0)
+                {
+    <img src="@linkImage.imgPathPartner@Model.Partner.Logo" width="100%" style="border-radius:5px; border:1px solid #bbb" />}
+            </div>
+        </div>
+    </div>
+
+
+
+</form>
+
+
+@section Scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+    <script>
+
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 250
+            });
+        });
+    function validationInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire(
+                    'Error!',
+                    'Please upload an Image!',
+                    'error'
+                )
+
+                return false;
+            }
+
+            return true;
+        }</script>
+
+}
+
+

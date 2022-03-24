@@ -1,0 +1,43 @@
+﻿@model IEnumerable<NGOWebApp.Models.ViewModels.PartnerProgramVM>
+@{
+    ViewData["Title"] = "Partner";
+}
+<!-- Page Header Start -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Our Partner</h2>
+            </div>
+            <div class="col-12">
+                <a href="@Url.Content("~/User/Home")">Home</a>
+                <a href="#">Our Partner</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="event">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+            <div class="col-md-4" style="margin-top:15px">
+                <div class="card" style="width: 18rem;">
+                    <div style="height:180px">
+                        <img class="card-img-top" style="height:100%" src="~/images/LogoPartner/@item.GetPartner.Logo" alt="Card image cap">
+                    </div>
+                   
+                    <div class="card-body">
+                        <h6 class="card-title">@item.GetPartner.OrgName</h6>
+                        <p style="color:darkcyan">Phone: &nbsp; @item.GetPartner.Phone</p>
+                        <p style="color:darkcyan">Campaign: &nbsp; @item.SumProgram</p>
+                       
+                        
+                    </div>
+                </div>
+            </div>
+               
+            }
+        </div>
+    </div>
+</div>

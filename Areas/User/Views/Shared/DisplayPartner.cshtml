@@ -1,0 +1,11 @@
+﻿
+@model NGOWebApp.Models.Partner
+
+<option value="">--------Partner--------</option>
+
+@if (ViewBag.PartnerList != null) { 
+    foreach(var item in ViewBag.PartnerList)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+}

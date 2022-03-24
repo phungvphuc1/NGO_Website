@@ -1,0 +1,116 @@
+﻿@model IEnumerable<NGOWebApp.Models.ViewModels.ProgramDonateVM>
+@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = "Event";
+}
+<style>
+    .fa-heart {
+        font-size: 50px;
+        position: relative;
+        top: 22px;
+        padding-left: 15px;
+    }
+    .active-heart {
+        color: red;
+    }
+</style>
+<!-- Page Header Start -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Upcoming Campaign</h2>
+            </div>
+            <div class="col-12">
+                <a href="@Url.Content("~/User/Home")">Home</a>
+                <a href="#">Campaign</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Event Start -->
+<div class="event">
+    <div class="container">
+        <div class="section-header text-center">
+            <p>Upcoming Campaign</p>
+            <h2>Be ready for our upcoming charity campaign</h2>
+        </div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-6">
+                    <div class="event-item">
+                        <div style="height:300px">
+                            <img height="100%" src="~/@item.Programs.Photo" alt="Image">
+                        </div>                     
+                        <div class="event-content">
+                            <div class="event-meta">
+                                <p><i class="fa fa-calendar-alt"></i>@item.Programs.Duration.ToString("dd MMM yyy")</p>
+                                @if (item.DateDiff >= 0 && item.Programs.Status == 1)
+                                {
+                                    <p><i class="far fa-clock"></i>@item.DateDiff Days</p>
+                                }
+                                <p><i class="fa fa-map-marker-alt"></i>Viet Nam</p>
+                                <p><i class="fas fa-donate"></i>@item.SumDonate / @item.Programs.ExpectedAmount</p>
+                                @if (item.Programs.Status == 2)
+                                {
+                                    <span class="badge badge-warning">The campaign is over</span>
+                                }
+                            </div>
+                            <div class="event-text">
+                                <div style="height:180px">
+                                    @if (item.Programs.ShortContent.Length > 120)
+                                    {
+                                        <h4>@item.Programs.ShortContent.Substring(0, 120) ...</h4>
+                                    }
+                                    else
+                                    {
+                                        <h4>@item.Programs.ShortContent</h4>
+                                    }
+                                </div>
+                                <div class="causes-btn">
+                                    <a class="btn btn-custom" asp-action="Details" asp-controller="Event" asp-route-Id="@item.Programs.Id">Learn More</a>
+                                    @if (Context.Session.GetInt32("Role") == 2 && !item.Interested)
+                                    {
+                                        <span> <i id="@item.Programs.Id" class="fas fa-heart" onclick="callAjax('@item.Programs.Id', @Context.Session.GetInt32("Id"),@item.Programs.GetPartner.Id)"></i></span>
+                                    }
+                                    @if (Context.Session.GetInt32("Role") == 2 && item.Interested)
+                                    {
+                                        <span> <i id="@item.Programs.Id" class="fas fa-heart active-heart " onclick="callAjax('@item.Programs.Id', @Context.Session.GetInt32("Id"),@item.Programs.GetPartner.Id)"></i></span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- Event End -->
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js" integrity="sha512-u9akINsQsAkG9xjc1cnGF4zw5TFDwkxuc9vUp5dltDWYCSmyd0meygbvgXrlc/z7/o4a19Fb5V0OUE58J7dcyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function callAjax(id, accountId, partnerId) {
+            var bodyFormData = new FormData();
+            bodyFormData.append('accountId', accountId);
+            bodyFormData.append('programId', id);
+            bodyFormData.append('partnerId', partnerId);
+            axios({
+                method: "post",
+                url: "http://localhost:29948/api/interested",
+                data: bodyFormData
+            })
+                .then(function (response) {
+                    //handle success
+                    console.log(response);
+                    $('#' + id).toggleClass("active-heart");
+                })
+                .catch(function (response) {
+                    //handle error
+                    console.log(response);
+                });
+        }
+    </script>
+}
